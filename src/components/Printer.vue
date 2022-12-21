@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import { formatNumberWithSuffix } from "@/lib/display";
 import { useClickerStore } from "@/state/clickerStore";
 import { computed } from "vue";
 
 const clickerStore = useClickerStore();
 const papersCount = computed(() => Math.floor(clickerStore.papersCount));
-const ppsPretty = computed(
-  () => Math.round(clickerStore.basePapersPerSecond * 100) / 100
+const papersCountPretty = computed(() =>
+  formatNumberWithSuffix(clickerStore.papersCount)
+);
+const ppsPretty = computed(() =>
+  formatNumberWithSuffix(clickerStore.basePapersPerSecond)
 );
 </script>
 
@@ -15,7 +19,7 @@ const ppsPretty = computed(
       📰 Print Newspaper
     </button>
     <p v-if="clickerStore.papersEver > 0">
-      <strong>{{ papersCount }}</strong> paper{{
+      <strong>{{ papersCountPretty }}</strong> paper{{
         papersCount === 1 ? "" : "s"
       }}
       in stock, <strong>{{ ppsPretty }}</strong> papers/s

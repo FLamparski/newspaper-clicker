@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { allBuildings, BuildingId } from "@/game-data/buildings";
+import { formatNumberWithSuffix } from "@/lib/display";
 import { useClickerStore } from "@/state/clickerStore";
 import { computed } from "vue";
 
@@ -10,9 +11,8 @@ const props = defineProps<{
 }>();
 
 const upgrade = computed(() => allBuildings[props.upgradeId]);
-const price = computed(() =>
-  Math.floor(clickerStore.getUpgradePrice(props.upgradeId))
-);
+const price = computed(() => clickerStore.getUpgradePrice(props.upgradeId));
+const pricePretty = computed(() => formatNumberWithSuffix(price.value));
 const canAfford = computed(() =>
   clickerStore.canAffordUpgrade(props.upgradeId)
 );
@@ -28,7 +28,7 @@ const numOwned = computed(() => clickerStore.buildings[props.upgradeId]);
       :disabled="!canAfford"
       @click="() => clickerStore.buyUpgrade(props.upgradeId)"
     >
-      🗞️ {{ price }}
+      🗞️ {{ pricePretty }}
     </button>
     <p class="num-owned" v-if="numOwned > 0">{{ numOwned }} owned</p>
   </div>
