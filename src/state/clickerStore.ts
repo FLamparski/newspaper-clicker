@@ -2,6 +2,7 @@ import { BuildingId, allBuildings } from "@/game-data/buildings";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import ClickerState from "@/state/clickerState";
+import { saveVersion } from "@/state/saveLoad";
 
 export const useClickerStore = defineStore("clicker", () => {
   const papersCount = ref(0);
@@ -10,12 +11,15 @@ export const useClickerStore = defineStore("clicker", () => {
   const buildings = ref<Record<BuildingId, number>>({
     PAPER_BOY: 0,
     LASER_PRINTER: 0,
+    MOLE_SKIN_NOTEBOOK: 0,
+    CAMERA: 0,
+    POLICE_SCANNER: 0,
   });
 
   const shopAvailable = computed(() => papersEver.value > 10);
 
   const saveableState = computed<ClickerState>(() => ({
-    _version: 1,
+    _version: saveVersion,
     papersCount: papersCount.value,
     papersEver: papersEver.value,
     basePapersPerSecond: basePapersPerSecond.value,

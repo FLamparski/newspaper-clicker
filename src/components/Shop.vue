@@ -13,4 +13,16 @@ const clickerStore = useClickerStore();
     v-if="clickerStore.papersEver > 100"
     :upgradeId="BuildingId.LASER_PRINTER"
   />
+  <ShopItem
+    v-if="clickerStore.papersEver > 250"
+    :upgradeId="BuildingId.MOLE_SKIN_NOTEBOOK"
+  />
+  <ShopItem
+    v-if="clickerStore.papersEver > 500"
+    :upgradeId="BuildingId.CAMERA"
+  />
+  <ShopItem
+    v-if="clickerStore.papersEver > 1000"
+    :upgradeId="BuildingId.POLICE_SCANNER"
+  />
 </template>
