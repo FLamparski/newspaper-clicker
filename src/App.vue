@@ -19,8 +19,11 @@ function tick(ts: number) {
     lastSaveTs.value = ts;
   }
 
-  // requestAnimationFrame(tick);
-  setTimeout(() => tick(performance.now()), 1000);
+  if (import.meta.env.PROD) {
+    requestAnimationFrame(tick);
+  } else {
+    setTimeout(() => tick(performance.now()), 1000);
+  }
 }
 
 onMounted(() => {
